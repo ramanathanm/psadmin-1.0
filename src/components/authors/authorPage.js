@@ -1,25 +1,35 @@
 "use strict";
 
 var React = require('react');
-var AuthorApi = require('../../api/authorApi');
-var AuthorList = require('./authorList');
 var Link = require('react-router').Link;
+
+var AuthorStore = require('../../stores/author-store');
+var AuthorList = require('./authorList');
 
 var AuthorPage = React.createClass({
     getInitialState: function() {
         return {
-            authors: []
+            authors: AuthorStore.getAllAuthors()
         };
     },
 
+    refreshState: function () {
+        this.setState({authors: AuthorStore.getAllAuthors()});
+    },
+
     componentWillMount: function() {
-       this.setState({authors: AuthorApi.getAllAuthors()});
+        AuthorStore.addChangeListener(this.refreshState);
+    },
+
+    componentWillUnmount: function() {
+        AuthorStore.removeChangeListener(this.refreshState);
     },
 
     render: function () {
         return (
             <div>
-                <AuthorList authors={this.state.authors}/>
+                <AuthorList
+                    authors={this.state.authors}/>
                 <Link to="author" className="btn btn-primary">Manage Author</Link>
             </div>
         );

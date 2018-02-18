@@ -1,30 +1,34 @@
 "use strict";
 
 var React = require('react');
+var TextInput = require('../../components/common/text-input');
 
 var AuthorForm = React.createClass({
     render: function(){
         return (
-            <form>
+            <form className="needs-validation">
                 <h1>Manage Author</h1>
-                <label htmlFor="firstName">First Name</label>
-                <input type="text"
-                       className="form-control"
-                       name="firstName"
-                       placeholder="First Name"
-                       ref="firstName"
-                       value="">
-                </input>
+                <TextInput
+                    name="firstName"
+                    label="First Name"
+                    error={this.props.errors.firstName}
+                    value={this.props.author.firstName}
+                    onChange={this.props.onChange}
+                />
                 <br/>
-                <label htmlFor="lastName">LastName</label>
-                <input type="text"
-                       className="form-control"
-                       placeholder="Last Name"
-                       ref="lastName"
-                       value=""
-                       name="lastName"/>
-                <br/>
-                <input type="submit" value="Save" className="btn btn-success"/>
+                <TextInput
+                    name="lastName"
+                    label="Last Name"
+                    error={this.props.errors.lastName}
+                    value={this.props.author.lastName}
+                    onChange={this.props.onChange}
+                />
+                <input
+                    type="submit"
+                    value="Save"
+                    className="btn btn-success"
+                    onClick={this.props.onSave}
+                />
             </form>
         );
     }

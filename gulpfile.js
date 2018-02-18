@@ -17,7 +17,8 @@ var config = {
         js: './src/**/*.js',
         css: [
             './src/**/*.css',
-            'node_modules/bootstrap/dist/css/bootstrap.css'
+            'node_modules/bootstrap/dist/css/bootstrap.css',
+            'node_modules/toastr/build/toastr.css'
         ],
         images: './images/**/*',
         dist: './dist',
