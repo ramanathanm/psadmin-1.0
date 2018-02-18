@@ -19,6 +19,7 @@ var config = {
             './src/**/*.css',
             'node_modules/bootstrap/dist/css/bootstrap.css'
         ],
+        images: './images/**/*',
         dist: './dist',
         mainJs: './src/main.js'
     }
@@ -63,6 +64,11 @@ gulp.task('css-deploy', function () {
         .pipe(connect.reload())
 });
 
+gulp.task('images-deploy', function () {
+    gulp.src(config.paths.images)
+        .pipe(gulp.dest(config.paths.dist + '/images'));
+});
+
 gulp.task('lint', function () {
     return gulp.src(config.paths.js)
         .pipe(eslint({configFile: 'eslint-config.json'}))
@@ -74,5 +80,6 @@ gulp.task('watch', function () {
     gulp.watch(config.paths.html, ['html-deploy'])
     gulp.watch(config.paths.js, ['js-deploy', 'lint'])
     gulp.watch(config.paths.css, ['css-deploy'])
+    gulp.watch(config.paths.images, ['images-deploy'])
 });
-gulp.task('default', ['html-deploy', 'js-deploy', 'css-deploy', 'lint', 'livereload', 'watch']);
+gulp.task('default', ['html-deploy', 'js-deploy', 'css-deploy', 'images-deploy', 'lint', 'livereload', 'watch']);
